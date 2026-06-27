@@ -3,9 +3,30 @@ import axios from 'axios';
 import ProductCard from '../components/ProductCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 
-export default function Home({ initialProducts }) {
+const fallbackProducts = [
+  {
+    id: 1,
+    title: 'Sample Product One',
+    price: 29.99,
+    category: 'electronics',
+    description: 'This is a fallback sample product used when the live API cannot be reached.',
+    image: 'https://via.placeholder.com/300?text=Sample+Product+One',
+    rating: { rate: 4.2, count: 99 },
+  },
+  {
+    id: 2,
+    title: 'Sample Product Two',
+    price: 59.99,
+    category: 'jewelery',
+    description: 'A sample fallback product that keeps the shop visible after deployment.',
+    image: 'https://via.placeholder.com/300?text=Sample+Product+Two',
+    rating: { rate: 4.8, count: 212 },
+  },
+];
+
+export default function Home({ initialProducts, fetchError }) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredProducts, setFilteredProducts] = useState(initialProducts || []);
+  const [filteredProducts, setFilteredProducts] = useState(initialProducts || fallbackProducts);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -16,12 +37,12 @@ export default function Home({ initialProducts }) {
       const query = (searchTerm || '').trim().toLowerCase();
 
       if (!query) {
-        setFilteredProducts(initialProducts || []);
+        setFilteredProducts(initialProducts || fallbackProducts);
         setLoading(false);
         return;
       }
 
-      const filtered = (initialProducts || []).filter((product) => {
+      const filtered = (initialProducts || fallbackProducts).filter((product) => {
         const title = (product.title || '').toString().toLowerCase();
         const category = (product.category || '').toString().toLowerCase();
         const description = (product.description || '').toString().toLowerCase();
@@ -43,6 +64,11 @@ export default function Home({ initialProducts }) {
   return (
     <div className="container my-5">
       <h1 className="text-center mb-4 fw-bold">Product Marketplace</h1>
+      {fetchError && (
+        <div className="alert alert-warning text-center" role="alert">
+          Unable to load live products from the API. Showing fallback sample products instead.
+        </div>
+      )}
       
       {/* Search Bar Container */}
       <div className="row justify-content-center mb-5">
@@ -85,10 +111,11 @@ export async function getServerSideProps() {
       },
     };
   } catch (error) {
-    console.error('Error fetching data in SSR:', error);
+    console.error('Error fetching data in SSR:', error?.message || error);
     return {
       props: {
-        initialProducts: [],
+        initialProducts: fallbackProducts,
+        fetchError: error?.message || 'Failed to load products from API.',
       },
     };
   }

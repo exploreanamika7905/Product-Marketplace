@@ -2,7 +2,28 @@ import axios from 'axios';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
-export default function ProductDetails({ product, error }) {
+const fallbackProducts = [
+  {
+    id: 1,
+    title: 'Sample Product One',
+    price: 29.99,
+    category: 'electronics',
+    description: 'This is a fallback sample product used when the live API cannot be reached.',
+    image: 'https://via.placeholder.com/300?text=Sample+Product+One',
+    rating: { rate: 4.2, count: 99 },
+  },
+  {
+    id: 2,
+    title: 'Sample Product Two',
+    price: 59.99,
+    category: 'jewelery',
+    description: 'A sample fallback product that keeps the shop visible after deployment.',
+    image: 'https://via.placeholder.com/300?text=Sample+Product+Two',
+    rating: { rate: 4.8, count: 212 },
+  },
+];
+
+export default function ProductDetails({ product, error, fetchError }) {
   const [userRating, setUserRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [message, setMessage] = useState('');
@@ -58,6 +79,11 @@ export default function ProductDetails({ product, error }) {
             <div className="d-flex align-items-center mb-4">
               <span className="text-warning fs-4 me-2">★ {product.rating.rate}</span>
               <span className="text-muted">({product.rating.count} Customer Reviews)</span>
+            </div>
+          )}
+          {fetchError && (
+            <div className="alert alert-warning" role="alert">
+              Unable to load this product from the live API. Showing fallback sample data.
             </div>
           )}
 
@@ -120,9 +146,13 @@ export async function getServerSideProps({ params }) {
       },
     };
   } catch (error) {
+    console.error('Error fetching product in SSR:', error?.message || error);
+    const fallbackProduct = fallbackProducts.find((item) => item.id.toString() === params.id.toString()) || null;
     return {
       props: {
-        error: true,
+        product: fallbackProduct,
+        error: !fallbackProduct,
+        fetchError: error?.message || 'Failed to load product from API.',
       },
     };
   }
