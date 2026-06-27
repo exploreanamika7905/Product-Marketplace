@@ -171,12 +171,7 @@ export default function ProductDetails({ product, error, fetchError }) {
               <span className="text-muted">({product.rating.count} Customer Reviews)</span>
             </div>
           )}
-          {fetchError && (
-            <div className="alert alert-warning" role="alert">
-              Unable to load this product from the live API. Showing fallback sample data.
-            </div>
-          )}
-
+          
           {/* User Rating Section */}
           {!isLoading && (
             <div className="mb-4 p-3 border rounded bg-light">

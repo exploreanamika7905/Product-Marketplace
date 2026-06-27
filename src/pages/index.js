@@ -154,11 +154,6 @@ export default function Home({ initialProducts, fetchError }) {
   return (
     <div className="container my-5">
       <h1 className="text-center mb-4 fw-bold">Product Marketplace</h1>
-      {fetchError && (
-        <div className="alert alert-warning text-center" role="alert">
-          Unable to load live products from the API. Showing fallback sample products instead.
-        </div>
-      )}
       
       {/* Search Bar Container */}
       <div className="row justify-content-center mb-5">
