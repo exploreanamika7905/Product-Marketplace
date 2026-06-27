@@ -9,7 +9,7 @@ const fallbackProducts = [
     price: 29.99,
     category: 'electronics',
     description: 'This is a fallback sample product used when the live API cannot be reached.',
-    image: 'https://via.placeholder.com/300?text=Sample+Product+One',
+    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop',
     rating: { rate: 4.2, count: 99 },
   },
   {
@@ -18,7 +18,7 @@ const fallbackProducts = [
     price: 59.99,
     category: 'jewelery',
     description: 'A sample fallback product that keeps the shop visible after deployment.',
-    image: 'https://via.placeholder.com/300?text=Sample+Product+Two',
+    image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=300&h=300&fit=crop',
     rating: { rate: 4.8, count: 212 },
   },
 ];
