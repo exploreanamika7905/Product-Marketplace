@@ -9,7 +9,7 @@ This project is a clean, server-side rendered marketplace UI built with Next.js 
 - **Dynamic Routing**: Click-through details navigation structured via `/product/[id]`.
 
 ## Tech Stack
-- **Framework**: Next.js (Pages Router)
+- **Framework**: Next.js 
 - **Styling**: Bootstrap v5
 - **Data Fetching**: Axios
 - **API**: [Fake Store API](https://fakestoreapi.com)

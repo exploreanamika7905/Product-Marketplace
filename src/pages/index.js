@@ -186,7 +186,7 @@ export default function Home({ initialProducts, fetchError }) {
   );
 }
 
-// Server-Side Rendering (SSR Requirement)
+// Server-Side Rendering 
 export async function getServerSideProps() {
   try {
     const res = await axios.get('https://fakestoreapi.com/products');

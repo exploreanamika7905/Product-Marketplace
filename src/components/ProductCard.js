@@ -31,7 +31,7 @@ export default function ProductCard({ product }) {
                 <span className="small text-muted">{rating.rate} ({rating.count} reviews)</span>
               </div>
             )}
-            {/* Dynamic Route Link (Bonus Requirement) */}
+            {/* Dynamic Route Link */}
             <Link href={`/product/${id}`} className="btn btn-outline-primary w-100">
               View Details
             </Link>
