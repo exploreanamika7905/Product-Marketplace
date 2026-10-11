@@ -7,5 +7,5 @@ export default function App({ Component, pageProps }) {
     import('bootstrap/dist/js/bootstrap.bundle.min.js');
   }, []);
 
-  return <Component {.....pageProps} />;
+  return <Component {...pageProps} />;
 }

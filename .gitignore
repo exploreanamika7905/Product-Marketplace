@@ -29,6 +29,6 @@ dist/
 .DS_Store
 Thumbs.db
 
-# Package locks (optional)
+# Package locks
 package-lock.json
 yarn.lock
